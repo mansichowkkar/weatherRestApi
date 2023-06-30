@@ -20,6 +20,7 @@ Download/ clone the code from the git repository. Run through run configuration 
 jar file can be found under target folder
 ```
 mvn clean install
+# integration tests may fail since application is not running
 # go to target directory in terminal and use following command
 java -jar weatherRestApi-0.0.1-SNAPSHOT.jar
 
@@ -37,7 +38,7 @@ IntelliJ Community edition does not support Spring Boot run configurations.
 
 Once the application is launched it is available at:
 
-https://localhost:8028
+https://localhost:8080
 
 H2 Database configurations:
 all settings have been added in application.properties.
@@ -71,10 +72,26 @@ The integration tests must run using one of the following configurations:
 
 1. Run tests locally using weatherRestApi running locally first
 
+#### API lists
+1. POST: http://localhost:8080/weather/temperature ( provide body as mentioned below
+```JSON body
+{
+  "date": "2023-06-26",
+  "temperature": 20,
+  "humidity": 15,
+  "sensor": "sensor1",
+  "windVelocity": 40
+}
+```
+2. GET : http://localhost:8080/weather/temperature/2023-06-26/2023-06-28 (replace dates as per your requirement)
+3. GET: http://localhost:8080/weather/temperature/2023-06-22/2023-06-28/sensor/sensor1/stats
+4. GET: http://localhost:8080/weather/temperature ( when no date and parameters provided it will search for todays date and sensor1 data)
+
 
 #### TODO list
 1. data.sql is not running which can be resolved and run while application loads
-2. Once data.sql loads unit tests can be improved
-3. Cover more unit tests and integration tests in future
-4. Add more detailed exceptions where required.
-5. Not connected to any database like jdbc/sql/oracle which can be done in future
+2. only Locale Date is supported but in future it will be replaced by Date class os we can even filter data with date and time
+3. Once data.sql loads unit tests can be improved
+4. Cover more unit tests and integration tests in future
+5. Add more detailed exceptions where required.
+6. Not connected to any database like jdbc/sql/oracle which can be done in future
